@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 from io import BytesIO
 
 
-def load_image():
+def load_image(url):
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -16,6 +16,14 @@ def load_image():
         return None
 
 
+def set_img():
+    img = load_image(url)
+
+    if img:
+        lab.config(image=img)
+        lab.image = img
+
+
 window = Tk()
 window.title('Котики')
 window.geometry('600x480')
@@ -23,11 +31,11 @@ window.geometry('600x480')
 lab = Label()
 lab.pack()
 
-url ='https://cataas.com/cat'
-img = load_image(url)
+upd_but = Button(text='Новый котик', command=set_img)
+upd_but.pack()
 
-if img:
-    lab.config(image=img)
-    lab.image = img
+url ='https://cataas.com/cat'
+
+set_img()
 
 window.mainloop()
