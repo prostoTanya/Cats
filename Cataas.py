@@ -17,11 +17,15 @@ def load_image(url):
         return None
 
 
-def set_img():
+def open_new_window():
     img = load_image(url)
 
     if img:
-        lab.config(image=img)
+        new_window = Toplevel()
+        new_window.title('Новый котик')
+        new_window.geometry('600x480')
+        lab = Label(new_window, image=img)
+        lab.pack()
         lab.image = img
 
 
@@ -33,8 +37,7 @@ window = Tk()
 window.title('Котики')
 window.geometry('600x480')
 
-lab = Label()
-lab.pack()
+
 
 # upd_but = Button(text='Новый котик', command=set_img)
 # upd_but.pack()
@@ -44,7 +47,7 @@ window.config(menu=menu_bar)
 
 file_menu = Menu(menu_bar, tearoff=0)
 menu_bar.add_cascade(label='Файл', menu=file_menu)
-file_menu.add_command(label='Загрузить новое фото', command=set_img)
+file_menu.add_command(label='Загрузить новое фото', command=open_new_window)
 file_menu.add_separator()
 file_menu.add_command(label='Выход', command=exit)
 
